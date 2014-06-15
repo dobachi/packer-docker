@@ -1,16 +1,15 @@
 {
     "builders":[{
         "type": "docker",
-        "image": "ubuntu",
+        "image": "centos",
         "export_path": "image.tar"
     }],
     "provisioners":[
         {
             "type": "shell",
             "inline": [
-                "apt-get -y update",
-                "apt-get install -y python-pip python-dev",
-                "pip install ansible"
+		"yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm",
+                "yum -y install ansible"
             ]
         },
         {
@@ -21,7 +20,7 @@
     "post-processors": [
         {
             "type": "docker-import",
-            "repository": "tcnksm/packer-ansible",
+            "repository": "dobachi/packer-ansible",
             "tag": "0.1"
         }
     ]
